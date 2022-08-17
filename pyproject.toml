@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "neutrapy"
+version = "0.0.0"
+description = "Command line tool for build a desktop app using neutralinojs and python"
+authors = ["pwwang <1188067+pwwang@users.noreply.github.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyparam = "^0.5.3"
+rtoml = "^0.8.0"
+
+[tool.poetry.dev-dependencies]
+setuptools-rust = "^1.5.1"
+setuptools = "^65.0.1"
+
+[tool.poetry.scripts]
+neutrapy = "neutrapy.__main__:main"
+
+[tool.poetry.build]
+script = "build.py"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,32 @@
+#neutralinoapp {
+    margin: 12px;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+    font: 1em sans-serif;
+}
+
+#neutralinoapp h1{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+
+#neutralinoapp > div {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+#neutralinoapp textarea {
+    height: 120px;
+    width: 500px;
+    padding: 6px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#neutralinoapp #output {
+    min-height: 60px;
+    width: 500px;
+    padding: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: lightgray;
+}

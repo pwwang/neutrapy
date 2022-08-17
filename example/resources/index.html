@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>NeutralinoJs Python Extension sample app</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div id="neutralinoapp">
+      <h1>NeutralinoJs + Python</h1>
+      <div>
+        <p>This sample application uses a python extension to evaluate python code below.</p>
+
+        <p><b>Python code:</b></p>
+        <p><textarea id="code">import sys&#10;sys.flags</textarea></p>
+        <p><b>Result:</b></p>
+        <p><div id="output"></div></p>
+        <button id="evaluate" disabled>Waiting for the extension to be ready</button>
+      </div>
+    </div>
+    <!-- Neutralino.js client. This file is gitignored,
+        because `neu update` typically downloads it.
+        Avoid copy-pasting it.
+        -->
+    <script src="js/neutralino.js"></script>
+    <!-- Your app's source files -->
+    <script src="js/main.js"></script>
+  </body>
+</html>

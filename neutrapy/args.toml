@@ -1,0 +1,67 @@
+[commands.check]
+desc = "Check if neutralinocli and poetry are installed."
+help_on_void = false
+
+[commands.check.params.python]
+desc = "The path to the python executable."
+default = "python"
+
+[commands.create]
+desc = "Create a new project."
+
+    [commands.create.params.name]
+    aliases = ["n"]
+    type = "str"
+    desc = "The name of the project. It's used to create a directory under current directory, and also the project name in neutralinojs.config.json and pyproject.toml."
+    required = true
+
+    [commands.create.params.python]
+    desc = "The path to the python executable."
+    default = "python"
+
+    [commands.create.params.version]
+    aliases = ["v"]
+    type = "str"
+    desc = "The version of the project. It's used in neutralinojs.config.json and pyproject.toml."
+    default = "0.1.0"
+
+    [commands.create.params.description]
+    aliases = ["d"]
+    type = "str"
+    desc = "The description of the project."
+    default = ""
+
+    [commands.create.params.license]
+    aliases = ["l"]
+    type = "str"
+    desc = "The license of the project."
+    default = "MIT"
+
+    [commands.create.params.template]
+    aliases = ["t"]
+    type = "str"
+    desc = "The template used to create the project."
+    default = "default"
+
+    [commands.create.params.force]
+    desc = "Remove existing project directory and then create."
+    default = false
+
+[commands.run]
+help_on_void = false
+desc = [
+    "Run current project. ",
+    "See also: https://neutralino.js.org/docs/cli/neu-cli/#neu-run"
+]
+
+    [commands.run.params.disable-auto-reload]
+    desc = "Disables the auto-reloading feature."
+    default = false
+
+    [commands.run.params.frontend-lib-dev]
+    desc = "Enables both frontend library's development environment and Neutralinojs's development evironment at the same time."
+    default = false
+
+    [commands.run.params.""]
+    desc = "Sets additional CLI arguments for the Neutralinojs application process. Must be quoted."
+    default = ""
