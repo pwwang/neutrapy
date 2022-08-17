@@ -32,7 +32,7 @@ Neutralino.init();
 Neutralino.events.on("windowClose", (evt) => Neutralino.app.exit() );
 Neutralino.events.on("fromExtensionToApp", (evt) => {
     document.getElementById("output").innerHTML = evt.detail;
-    document.getElementById("output").disabled = false;
+    document.getElementById("evaluate").disabled = false;
 });
 
 Neutralino.events.on("extensionReady", (evt) => {

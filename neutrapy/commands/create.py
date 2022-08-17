@@ -52,6 +52,34 @@ def run(args):
     print("- Creating neutralinojs project ...")
     Popen([shutil.which("neu"), "create", args.name]).wait()
 
+    print("- Copying template files ...")
+    basedir = TPL_DIR.joinpath("default")
+    tpldir = TPL_DIR.joinpath(args.template)
+    for bfile in basedir.glob("**/*"):
+        if bfile.is_dir():
+            (
+                workdir
+                .joinpath(bfile.relative_to(basedir))
+                .mkdir(parents=True, exist_ok=True)
+            )
+            continue
+
+        tfile = tpldir.joinpath(bfile.relative_to(basedir))
+        if not tfile.exists():
+            tfile = bfile
+
+        content = tfile.read_text()
+        content = replace_placeholders(
+            content,
+            name=args.name,
+            version=args.version,
+            description=args.description,
+            license=args.license,
+            target=target,
+            python=Path(args.python).as_posix(),
+        )
+        workdir.joinpath(bfile.relative_to(basedir)).write_text(content)
+
     print("- Creating neutrapy config file ...")
     neutrapy_config = {
         "name": args.name,
@@ -63,76 +91,5 @@ def run(args):
     }
     with open(workdir.joinpath("neutrapy.toml"), "w") as f:
         toml.dump(neutrapy_config, f)
-
-    print("- Writing neutralino config ...")
-    with open(workdir.joinpath("neutralino.config.json"), "w") as f:
-        neuconfig = neutrapy_config["neutralino"]
-        neuconfig = replace_placeholders(
-            neuconfig,
-            name=args.name,
-            version=args.version,
-            description=args.description,
-            license=args.license,
-            target=target,
-            python=Path(args.python).as_posix(),
-        )
-
-        json.dump(neuconfig, f, indent=4)
-
-    print("- Writing pyproject.toml ...")
-    with open(workdir.joinpath("pyproject.toml"), "w") as f:
-        pyproject = neutrapy_config["poetry"]
-        pyproject = replace_placeholders(
-            pyproject,
-            name=args.name,
-            version=args.version,
-            description=args.description,
-            license=args.license,
-            target=target,
-            python=Path(args.python).as_posix(),
-        )
-
-        toml.dump(pyproject, f)
-
-    print("- Creating python extension for neutralino ...")
-    extdir = workdir.joinpath("extensions")
-    extdir.mkdir()
-    tpldir = TPL_DIR.joinpath(args.template)
-    shutil.copytree(
-        tpldir.joinpath("extension"),
-        extdir.joinpath("python"),
-    )
-
-    neu_ext_utils = replace_placeholders(
-        tpldir.joinpath("extension", "utils.py").read_text(),
-        name=args.name,
-        version=args.version,
-        description=args.description,
-        license=args.license,
-        target=target,
-        python=Path(args.python).as_posix(),
-    )
-    extdir.joinpath("python", "utils.py").write_text(neu_ext_utils)
-    extdir.joinpath("__init__.py").touch()
-
-    print("- Copying frontend files ...")
-    shutil.copyfile(
-        tpldir.joinpath("index.html"),
-        workdir.joinpath("resources", "index.html"),
-    )
-    shutil.copyfile(
-        tpldir.joinpath("styles.css"),
-        workdir.joinpath("resources", "styles.css"),
-    )
-    mainjs = replace_placeholders(
-        tpldir.joinpath("main.js").read_text(),
-        name=args.name,
-        version=args.version,
-        description=args.description,
-        license=args.license,
-        target=target,
-        python=Path(args.python).as_posix(),
-    )
-    workdir.joinpath("resources", "js", "main.js").write_text(mainjs)
 
     print(f"- To run your application: cd {args.name} && neutrapy run")

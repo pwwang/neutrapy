@@ -14,6 +14,7 @@ if __name__ == "__main__":
     ws.on_error = api.handler("error")
     ws.on_close = api.handler("close")
 
-    ws.run_forever(dispatcher=rel)  # Set dispatcher to automatic reconnection
+    # Set dispatcher to automatic reconnection
+    ws.run_forever(dispatcher=rel, skip_utf8_validation=True)
     rel.signal(2, rel.abort)  # Keyboard Interrupt
     rel.dispatch()
