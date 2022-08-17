@@ -62,6 +62,6 @@ desc = [
     desc = "Enables both frontend library's development environment and Neutralinojs's development evironment at the same time."
     default = false
 
-    [commands.run.params.""]
-    desc = "Sets additional CLI arguments for the Neutralinojs application process. Must be quoted."
-    default = ""
+    [commands.run.params."-"]
+    desc = "Sets additional CLI arguments for the Neutralinojs application process. "
+    default = []

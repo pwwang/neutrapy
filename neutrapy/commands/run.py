@@ -1,8 +1,5 @@
 import shutil
-import shlex
 from subprocess import Popen
-
-from pyparam import POSITIONAL
 
 
 def run(args):
@@ -12,8 +9,8 @@ def run(args):
         cmds.append("--disable-auto-reload")
     if args["frontend-lib-dev"]:
         cmds.append("--frontend-lib-dev")
-    if args[POSITIONAL]:
+    if args["-"]:
         cmds.append("--")
-        cmds.extend(shlex.split(args[POSITIONAL]))
+        cmds.extend(args["-"])
 
     Popen(cmds).wait()
