@@ -1,38 +1,20 @@
-import sys
 import json
 import shutil
-from platform import python_version
+from pathlib import Path
 from subprocess import Popen
 
 import rtoml as toml
-from pathlib import Path
 
-from .. import current_platform_rs
+from ..current_platform_rs import platform
+from ..utils import logh, replace_placeholders, set_dir, get_python_version
+from .sync import run as run_sync
 
 TPL_DIR = Path(__file__).parent.parent.joinpath("templates")
 
 
-def replace_placeholders(config, **values):
-    if isinstance(config, str):
-        config_str = config
-    else:
-        config_str = json.dumps(config, indent=4)
-
-    for key, value in values.items():
-        config_str = config_str.replace(f"${{{key}}}", str(value))
-
-    if isinstance(config, str):
-        return config_str
-
-    return json.loads(config_str)
-
-
 def run(args):
     """Create a new project"""
-    target = current_platform_rs.platform()
     workdir = Path.cwd().joinpath(args.name)
-    pyver = python_version()
-    pyminorver = ".".join(pyver.split(".")[:2])
     if workdir.exists() and not args.force:
         raise FileExistsError(
             f"Directory `{workdir}` already exists, "
@@ -40,15 +22,27 @@ def run(args):
         )
 
     if workdir.is_dir():
-        print("- Removing existing project directory ...")
+        logh("Removing existing project directory")
         shutil.rmtree(workdir)
 
-    print("- Creating neutralinojs project ...")
+    logh("Creating neutralinojs project")
     Popen([shutil.which("neu"), "create", args.name]).wait()
 
-    print("- Copying template files ...")
+    logh("Copying template files")
     basedir = TPL_DIR.joinpath("default")
     tpldir = TPL_DIR.joinpath(args.template)
+    python = shutil.which(args.python)
+    data = dict(
+        name=args.name,
+        version=args.version,
+        description=args.description,
+        license=args.license,
+        target=platform(),
+        python=python,
+        python_version=get_python_version(python),
+        python_minor_version=get_python_version(python, parts=2),
+        **{"ext-loglevel": args["ext-loglevel"]},
+    )
     for bfile in basedir.glob("**/*"):
         if bfile.is_dir():
             (
@@ -63,33 +57,42 @@ def run(args):
             tfile = bfile
 
         content = tfile.read_text()
-        content = replace_placeholders(
-            content,
-            name=args.name,
-            version=args.version,
-            description=args.description,
-            license=args.license,
-            target=target,
-            python=Path(args.python).as_posix(),
-            python_version=pyver,
-            python_minor_version=pyminorver,
-        )
+        if tfile.suffix == ".json":
+            content = replace_placeholders(
+                content,
+                # escape the python path on windows
+                python=python.replace("\\", "\\\\"),
+                **{k: v for k, v in data.items() if k != "python"},
+            )
+        else:
+            content = replace_placeholders(content, **data)
         workdir.joinpath(bfile.relative_to(basedir)).write_text(content)
 
-    print("- Creating neutrapy config file ...")
-    with (
-        workdir.joinpath("neutralino.config.json").open() as f1,
-        workdir.joinpath("pyproject.toml").open() as f2,
-    ):
+    logh("Creating neutrapy config file")
+    nconfigfile = tpldir.joinpath("neutralino.config.json")
+    if not nconfigfile.exists():
+        nconfigfile = basedir.joinpath("neutralino.config.json")
+    pconfigfile = tpldir.joinpath("pyproject.toml")
+    if not pconfigfile.exists():
+        pconfigfile = basedir.joinpath("pyproject.toml")
+
+    with nconfigfile.open() as f1, pconfigfile.open() as f2:
         neutrapy_config = {
-            "name": args.name,
-            "version": args.version,
-            "description": args.description,
-            "license": args.license,
-            "neutralino": json.load(f1),
-            "poetry": toml.load(f2),
+            key: val
+            for key, val in data.items()
+            if key not in ("python_version", "python_minor_version")
         }
+        neutrapy_config["neutralino"] = json.load(f1)
+        neutrapy_config["poetry"] = toml.load(f2)
+
     with open(workdir.joinpath("neutrapy.toml"), "w") as f:
         toml.dump(neutrapy_config, f)
 
-    print(f"- To run your application: cd {args.name} && neutrapy run")
+    with set_dir(workdir):
+        run_sync(
+            {},
+            sync_pypj=False,
+            sync_neu=False,
+        )
+
+    logh(f"To run your application: cd {args.name} && neutrapy run")

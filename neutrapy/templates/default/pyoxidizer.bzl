@@ -290,13 +290,13 @@ def make_msi(exe):
     # .msi installer when it is built.
     return exe.to_wix_msi_builder(
         # Simple identifier of your app.
-        "myapp",
+        "python",
         # The name of your application.
-        "My Application",
+        "Python backend for neutralinojs",
         # The version of your application.
-        "1.0",
+        "${version}",
         # The author/manufacturer of your application.
-        "Alice Jones"
+        "The Author"
     )
 
 

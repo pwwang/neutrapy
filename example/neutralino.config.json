@@ -53,7 +53,7 @@
     "extensions": [
         {
             "id": "js.neutralino.example.python",
-            "command": "D:/miniconda3/python.exe -m extensions.python"
+            "command": "D:\\miniconda3\\python.exe -m extensions.python"
         }
     ]
 }

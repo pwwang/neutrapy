@@ -47,6 +47,11 @@ desc = "Create a new project."
     desc = "Remove existing project directory and then create."
     default = false
 
+    [commands.create.params.ext-loglevel]
+    desc = "Default logging level for the python extension."
+    default = "INFO"
+    choices = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+
 [commands.run]
 help_on_void = false
 desc = [
@@ -62,6 +67,75 @@ desc = [
     desc = "Enables both frontend library's development environment and Neutralinojs's development evironment at the same time."
     default = false
 
-    [commands.run.params."-"]
+    [commands.run.params.-]
     desc = "Sets additional CLI arguments for the Neutralinojs application process. "
     default = []
+
+[commands.add]
+desc = [
+    "Add a python dependency."
+]
+
+    [commands.add.params.""]
+    desc = "The names of the dependencies."
+    required = true
+    type = "list"
+
+    [commands.add.params.dev]
+    desc = "Add the dependencies to dev-dependencies."
+    default = false
+    aliases = ["D"]
+
+    [commands.add.params.extras]
+    desc="Extras to activate for the dependency."
+    default = []
+    aliases = ["E"]
+
+    [commands.add.params.optional]
+    desc = "Add the dependencies as optional."
+    default = false
+
+    [commands.add.params.pyver]
+    desc = "Python version for which the dependency must be installed."
+    default = ""
+
+    [commands.add.params.platform]
+    desc = "Platform for which the dependency must be installed."
+    default = ""
+
+    [commands.add.params.source]
+    desc = "Name of the source to use for the dependency."
+    default = ""
+
+    [commands.add.params.allow-prereleases]
+    desc = "Allow prereleases."
+    default = false
+
+    [commands.add.params.lock]
+    desc = "Do not perform operations (only update the lockfile)."
+    default = false
+
+[commands.remove]
+desc = [
+    "Remove a python dependency."
+]
+
+    [commands.remove.params.""]
+    desc = "The names of the dependencies."
+    required = true
+    type = "list"
+
+    [commands.remove.params.dev]
+    desc = "Remove the dependencies from dev-dependencies."
+    default = false
+    aliases = ["D"]
+
+[commands.sync]
+desc = [
+    "Sync neutrapy.toml to downstream configuration files"
+]
+help_on_void = false
+
+    [commands.sync.params.python]
+    desc = "The path to the python executable."
+    default = "python"

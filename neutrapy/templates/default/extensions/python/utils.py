@@ -32,7 +32,7 @@ def get_logger():
         Path.cwd().joinpath(f"{EXT_ID}.log")
     )
     logger.addHandler(fh)
-    logger.setLevel(config.get("ext_log_level", "INFO"))
+    logger.setLevel(config.get("ext-loglevel", "INFO"))
     return logger
 
 
