@@ -15,11 +15,23 @@ def run(args):
     else:
         print("✔ neu is installed.")
 
-    p = Popen([args.python, "--version"]).communicate()
-    if p.returncode != 0:
+    rc = Popen([args.python, "-m", "poetry", "--version"]).wait()
+    if rc != 0:
         print("x `poetry` is not installed, please install it first.")
         print("  See: https://python-poetry.org/docs/#installation")
     else:
         print(
             "✔ poetry is installed."
+        )
+
+    rc = Popen(["pyoxidizer", "--version"]).wait()
+    if rc != 0:
+        print("x `pyoxidizer` is not installed, please install it first.")
+        print(
+            "  See: https://gregoryszorc.com/docs/pyoxidizer/main/"
+            "pyoxidizer_getting_started.html#python-wheels"
+        )
+    else:
+        print(
+            "✔ pyoxidizer is installed."
         )

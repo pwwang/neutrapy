@@ -1,0 +1,3 @@
+rel==0.4.7
+rtoml==0.8.0; python_version >= "3.7"
+websocket-client==1.3.3; python_version >= "3.7"

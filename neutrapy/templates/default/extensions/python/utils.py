@@ -2,7 +2,7 @@ import json
 import logging
 from pathlib import Path
 
-import rtoml
+import rtoml as toml
 
 
 def runtime_info():
@@ -26,7 +26,7 @@ def get_logger():
         return logger
 
     with open(Path.cwd().joinpath("neutrapy.toml")) as f:
-        config = rtoml.load(f)
+        config = toml.load(f)
 
     fh = logging.FileHandler(
         Path.cwd().joinpath(f"{EXT_ID}.log")
