@@ -11,6 +11,7 @@ pyparam = "^0.5.3"
 rtoml = "^0.8.0"
 
 [tool.poetry.dev-dependencies]
+setuptools-rust = "^1.5.1"
 
 [tool.poetry.scripts]
 neutrapy = "neutrapy.__main__:main"
