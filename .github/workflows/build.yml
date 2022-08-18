@@ -23,7 +23,7 @@ jobs:
           python -m pip install poetry
           poetry config virtualenvs.create false
           poetry install -v
-          python -m pip install setuptools setuptools-rust
+          python -m pip install -U setuptools setuptools-rust
       - name: Publish to PyPI
         run: poetry publish --build -u ${{ secrets.PYPI_USER }} -p ${{ secrets.PYPI_PASSWORD }}
         if: success()

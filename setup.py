@@ -2,13 +2,19 @@
 from setuptools import setup
 
 packages = \
-['neutrapy', 'neutrapy.commands']
+['neutrapy',
+ 'neutrapy.commands',
+ 'neutrapy.templates.default.extensions',
+ 'neutrapy.templates.default.extensions.python']
 
 package_data = \
-{'': ['*'], 'neutrapy': ['data/*']}
+{'': ['*'],
+ 'neutrapy': ['templates/default/*',
+              'templates/default/resources/*',
+              'templates/default/resources/js/*']}
 
 install_requires = \
-['cmdy>=0.5.0,<0.6.0', 'pyparam>=0.5.3,<0.6.0', 'rtoml>=0.8.0,<0.9.0']
+['pyparam>=0.5.3,<0.6.0', 'rtoml>=0.8.0,<0.9.0']
 
 entry_points = \
 {'console_scripts': ['neutrapy = neutrapy.__main__:main']}
@@ -29,7 +35,7 @@ setup_kwargs = {
     'entry_points': entry_points,
     'python_requires': '>=3.8,<4.0',
 }
-from build import *
+from building import *
 build(setup_kwargs)
 
 setup(**setup_kwargs)
