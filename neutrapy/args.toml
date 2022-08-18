@@ -147,5 +147,5 @@ desc = [
 help_on_void = false
 
     [commands.build.params.force]
-    desc = "Don't check if downstream configuration files need to be sync'ed."
+    desc = "Do not check if we need to do `neutrapy sync` before building."
     default = false

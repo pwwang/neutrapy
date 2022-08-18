@@ -165,3 +165,9 @@ cython_debug/
 
 # neutralinojs runtime tmp files
 .tmp
+
+docs/index.md
+docs/logo.png
+docs/example.png
+
+/*.psd
