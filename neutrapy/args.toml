@@ -139,3 +139,13 @@ help_on_void = false
     [commands.sync.params.python]
     desc = "The path to the python executable."
     default = "python"
+
+[commands.build]
+desc = [
+    "Build the project."
+]
+help_on_void = false
+
+    [commands.build.params.force]
+    desc = "Don't check if downstream configuration files need to be sync'ed."
+    default = false

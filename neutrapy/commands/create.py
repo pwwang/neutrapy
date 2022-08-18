@@ -95,4 +95,8 @@ def run(args):
             sync_neu=False,
         )
 
+    # So that we don't need to run `neu sync`
+    workdir.joinpath("pyproject.toml").touch()
+    workdir.joinpath("neutralino.config.json").touch()
+
     logh(f"To run your application: cd {args.name} && neutrapy run")

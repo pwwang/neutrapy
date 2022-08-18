@@ -4,7 +4,6 @@ from subprocess import Popen
 
 import rtoml as toml
 
-from ..current_platform_rs import platform
 from ..utils import logh, replace_placeholders, get_python_version
 
 
@@ -36,7 +35,14 @@ def run(
         logh("Syncing to neutralino.config.json ...")
         neu = json.dumps(config["neutralino"], indent=4)
         with open("neutralino.config.json", "w") as f:
-            f.write(replace_placeholders(neu, **data))
+            # escape the python path on windows
+            f.write(
+                replace_placeholders(
+                    neu,
+                    python=data["python"].replace("\\", "\\\\"),
+                    **{k: v for k, v in data.items() if k != "python"}
+                )
+            )
 
     if update_pylock:
         logh("Updating pyproject.lock ...")

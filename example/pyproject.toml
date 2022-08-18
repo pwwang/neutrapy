@@ -2,11 +2,11 @@
 name = "example-python"
 version = "0.1.0"
 description = ""
-authors = []
 license = "MIT"
-packages = [
-    { include = "extensions/example" }
-]
+authors = []
+
+[[tool.poetry.packages]]
+include = "extensions/example"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -17,5 +17,5 @@ rtoml = "^0.8"
 [tool.poetry.dev-dependencies]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]

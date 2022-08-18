@@ -1,5 +1,6 @@
-from functools import lru_cache
 import os
+import shutil
+from functools import lru_cache
 from contextlib import contextmanager
 from pathlib import Path
 from subprocess import check_output
@@ -48,3 +49,15 @@ def set_dir(path):
         yield
     finally:
         os.chdir(origin)
+
+
+@contextmanager
+def backingup(file):
+    """Backup a file before modifying it and finally restore it"""
+    backup = file.parent.joinpath(f"{file.name}.bak")
+    shutil.copyfile(file, backup)
+
+    try:
+        yield
+    finally:
+        shutil.move(backup, file)

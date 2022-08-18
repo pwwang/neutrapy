@@ -57,6 +57,7 @@ $ neutrapy build
 
 ## Credits
 
+- [neutralinojs][1]
 - [neutralino_python_extension_sample][2]
 
 [1]: https://neutralino.js.org/
