@@ -1,0 +1,722 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+    
+    
+      
+        <title>The CLI tool - neutrapy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,700,700i%7CUbuntu+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Ubuntu";--md-code-font:"Ubuntu Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-cli-tool" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="neutrapy" class="md-header__button md-logo" aria-label="neutrapy" data-md-component="logo">
+      
+  <img src="../favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            neutrapy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The CLI tool
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pwwang/neutrapy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pwwang/liquidpy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="neutrapy" class="md-nav__button md-logo" aria-label="neutrapy" data-md-component="logo">
+      
+  <img src="../favicon.png" alt="logo">
+
+    </a>
+    neutrapy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pwwang/neutrapy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pwwang/liquidpy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          The CLI tool
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        The CLI tool
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-cli-tool" class="md-nav__link">
+    The CLI tool
+  </a>
+  
+    <nav class="md-nav" aria-label="The CLI tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checking-the-requirements" class="md-nav__link">
+    Checking the requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-project" class="md-nav__link">
+    Creating a new project
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncronizing-the-configurations" class="md-nav__link">
+    Syncronizing the configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addingremoving-python-packages" class="md-nav__link">
+    Adding/Removing python packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-application" class="md-nav__link">
+    Running the application
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-the-application" class="md-nav__link">
+    Building the application
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../app-to-extension/" class="md-nav__link">
+        App-to-extension communication
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extension/" class="md-nav__link">
+        The python extension
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        Useful links
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CHANGELOG/" class="md-nav__link">
+        CHANGELOG
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-cli-tool" class="md-nav__link">
+    The CLI tool
+  </a>
+  
+    <nav class="md-nav" aria-label="The CLI tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checking-the-requirements" class="md-nav__link">
+    Checking the requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-project" class="md-nav__link">
+    Creating a new project
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncronizing-the-configurations" class="md-nav__link">
+    Syncronizing the configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addingremoving-python-packages" class="md-nav__link">
+    Adding/Removing python packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-application" class="md-nav__link">
+    Running the application
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-the-application" class="md-nav__link">
+    Building the application
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/pwwang/neutrapy/edit/master/docs/cli.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>The CLI tool</h1>
+
+<h2 id="the-cli-tool">The CLI tool</h2>
+<h3 id="checking-the-requirements">Checking the requirements</h3>
+<div class="highlight"><pre><span></span><code>$ neutrapy check
+<span class="c1"># Checks if neu-cli, poetry and pyoxidizer are installed</span>
+
+$ neutrapy check --python /path/to/python
+<span class="c1"># Specify the path to python used in the project</span>
+</code></pre></div>
+<h3 id="creating-a-new-project">Creating a new project</h3>
+<div class="highlight"><pre><span></span><code>$ neutrapy create --help
+
+ DESCRIPTION:
+  Create a new project.
+
+ USAGE:
+  neutrapy create --name STR <span class="o">[</span>OPTIONS<span class="o">]</span>
+
+ REQUIRED OPTIONS:
+  -n, --name &lt;STR&gt;                - The name of the project. It<span class="s1">&#39;s used to create</span>
+<span class="s1">                                    a directory under current directory, and</span>
+<span class="s1">                                    also the project name in</span>
+<span class="s1">                                    neutralinojs.config.json and pyproject.toml.</span>
+
+<span class="s1"> OPTIONAL OPTIONS:</span>
+<span class="s1">  --python &lt;STR&gt;                  - The path to the python executable.</span>
+<span class="s1">                                    Default: python</span>
+<span class="s1">  -v, --version &lt;STR&gt;             - The version of the project. It&#39;</span>s used <span class="k">in</span>
+                                    neutralinojs.config.json and pyproject.toml.
+                                    Default: <span class="m">0</span>.1.0
+  -d, --description &lt;STR&gt;         - The description of the project. Default: <span class="s1">&#39;&#39;</span>
+  -l, --license &lt;STR&gt;             - The license of the project. Default: MIT
+  -t, --template &lt;STR&gt;            - The template used to create the project.
+                                    Default: default
+  --force <span class="o">[</span>BOOL<span class="o">]</span>                  - Remove existing project directory and <span class="k">then</span>
+                                    create. Default: False
+  --ext-loglevel &lt;STR&gt;            - Default logging level <span class="k">for</span> the python
+                                    extension. Default: INFO
+  -h, --help                      - Print <span class="nb">help</span> information <span class="k">for</span> this <span class="nb">command</span>
+</code></pre></div>
+<p>This command will:</p>
+<ul>
+<li>Remove the existing project directory if <code>--force</code> is passed</li>
+<li>Run <code>neu create &lt;name&gt;</code> to create a neutralinojs project (A directory with <code>&lt;name&gt;</code> will be created under current directory)</li>
+<li>Copy the template files to the project directory and replace the placeholders with the values passed to the command</li>
+<li>Create <code>neutrapy.toml</code> in the project directory with given configurations from the template and the values passed to the command</li>
+<li>
+<p>Syncronize the <code>neutrapy.toml</code> to other configurations files, including:</p>
+<ul>
+<li><code>poetry.lock</code> and <code>requirements.txt</code> (for PyOxidizer to build the python extension)</li>
+<li><code>pyoxidizer.bzl</code> for PyOxidizer to build the python extension</li>
+</ul>
+</li>
+</ul>
+<h3 id="syncronizing-the-configurations">Syncronizing the configurations</h3>
+<div class="highlight"><pre><span></span><code>$ neutrapy sync
+<span class="c1"># Syncronize the neutrapy.toml to other configurations files</span>
+</code></pre></div>
+<p>These configurations include:</p>
+<ul>
+<li><code>pyproject.toml</code> (items under <code>poetry</code> section in <code>neutrapy.toml</code> will be synced to <code>tool.poetry</code> section in <code>pyproject.toml</code>)</li>
+<li><code>neutralinojs.config.json</code> (items under <code>neutralino</code> section in <code>neutrapy.toml</code> will be synced to <code>neutralino</code> section in <code>neutralinojs.config.json</code>)</li>
+<li><code>poetry.lock</code> and <code>requirements.txt</code> (for PyOxidizer to build the python extension)</li>
+<li><code>pyoxidizer.bzl</code> for PyOxidizer to build the python extension</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The best practice is to always modify <code>neutrapy.toml</code> and then run <code>neutrapy sync</code> to syncronize the configurations, except <code>pyoxidizer.bzl</code> which is generated by PyOxidizer.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To manage the python dependences for the python extension, do NOT use <code>poetry add</code> and <code>poetry remove</code>. Instead, use <code>neutrapy add</code> and <code>neutrapy remove</code> to add and remove python packages, so that they will be sync'ed to all the configuration files.</p>
+<p>If you accidentally use <code>poetry add</code> and <code>poetry remove</code>, <code>neutrapy sync</code> will lose those dependencies.</p>
+</div>
+<h3 id="addingremoving-python-packages">Adding/Removing python packages</h3>
+<p><div class="highlight"><pre><span></span><code>$ neutrapy add --help
+
+ DESCRIPTION:
+  Add a python dependency.
+
+ USAGE:
+  neutrapy add - LIST <span class="o">[</span>OPTIONS<span class="o">]</span>
+
+ REQUIRED OPTIONS:
+  POSITIONAL &lt;LIST&gt;               - The names of the dependencies.
+
+ OPTIONAL OPTIONS:
+  -D, --dev <span class="o">[</span>BOOL<span class="o">]</span>                - Add the dependencies to dev-dependencies.
+                                    Default: False
+  -E, --extras &lt;LIST&gt;             - Extras to activate <span class="k">for</span> the dependency.
+                                    Default: <span class="o">[]</span>
+  --optional <span class="o">[</span>BOOL<span class="o">]</span>               - Add the dependencies as optional.
+                                    Default: False
+  --pyver &lt;STR&gt;                   - Python version <span class="k">for</span> which the dependency must
+                                    be installed. Default: <span class="s1">&#39;&#39;</span>
+  --platform &lt;STR&gt;                - Platform <span class="k">for</span> which the dependency must be
+                                    installed. Default: <span class="s1">&#39;&#39;</span>
+  --source &lt;STR&gt;                  - Name of the <span class="nb">source</span> to use <span class="k">for</span> the
+                                    dependency. Default: <span class="s1">&#39;&#39;</span>
+  --allow-prereleases <span class="o">[</span>BOOL<span class="o">]</span>      - Allow prereleases. Default: False
+  --lock <span class="o">[</span>BOOL<span class="o">]</span>                   - Do not perform operations <span class="o">(</span>only update the
+                                    lockfile<span class="o">)</span>. Default: False
+  -h, --help                      - Print <span class="nb">help</span> information <span class="k">for</span> this <span class="nb">command</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$ neutrapy remove --help
+
+ DESCRIPTION:
+  Remove a python dependency.
+
+ USAGE:
+  neutrapy remove - LIST [OPTIONS]
+
+ REQUIRED OPTIONS:
+  POSITIONAL &lt;LIST&gt;               - The names of the dependencies.
+
+ OPTIONAL OPTIONS:
+  -D, --dev [BOOL]                - Remove the dependencies from
+                                    dev-dependencies. Default: False
+  -h, --help                      - Print help information for this command
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>--pyver</code> will be passed as <code>--python</code> to <code>poetry add</code> command.</p>
+</div>
+<h3 id="running-the-application">Running the application</h3>
+<div class="highlight"><pre><span></span><code>$ neutrapy run --help
+
+ DESCRIPTION:
+  Run current project.
+  See also: https://neutralino.js.org/docs/cli/neu-cli/#neu-run
+
+ USAGE:
+  neutrapy run <span class="o">[</span>OPTIONS<span class="o">]</span>
+
+ OPTIONAL OPTIONS:
+  --disable-auto-reload <span class="o">[</span>BOOL<span class="o">]</span>    - Disables the auto-reloading feature.
+                                    Default: False
+  --frontend-lib-dev <span class="o">[</span>BOOL<span class="o">]</span>       - Enables both frontend library<span class="s1">&#39;s development</span>
+<span class="s1">                                    environment and Neutralinojs&#39;</span>s development
+                                    evironment at the same time. Default: False
+  -- &lt;LIST&gt;                       - Sets additional CLI arguments <span class="k">for</span> the
+                                    Neutralinojs application process.
+                                    Default: <span class="o">[]</span>
+  -h, --help                      - Print <span class="nb">help</span> information <span class="k">for</span> this <span class="nb">command</span>
+</code></pre></div>
+<p>This will simply call <code>neu run</code> to run the application.</p>
+<h3 id="building-the-application">Building the application</h3>
+<div class="highlight"><pre><span></span><code>$ neutrapy build --help
+
+ DESCRIPTION:
+  Build the project.
+
+ USAGE:
+  neutrapy build <span class="o">[</span>OPTIONS<span class="o">]</span>
+
+ OPTIONAL OPTIONS:
+  --force <span class="o">[</span>BOOL<span class="o">]</span>                  - Do not check <span class="k">if</span> we need to <span class="k">do</span> <span class="sb">`</span>neutrapy
+                                    sync<span class="sb">`</span> before building. Default: False
+  -h, --help                      - Print <span class="nb">help</span> information <span class="k">for</span> this <span class="nb">command</span>
+</code></pre></div>
+<p>This will:</p>
+<ul>
+<li>Check if <code>neutrapy sync</code> is needed (if <code>neutrapy.toml</code> is modified since last <code>neutrapy sync</code>) if <code>--force</code> is not passed</li>
+<li>Build the python extension using PyOxidizer</li>
+<li>Modify the <code>neutralinojs.config.json</code> to use the built python extension</li>
+<li>Build the Neutralinojs application using <code>neu build</code></li>
+<li>Restore the <code>neutralinojs.config.json</code></li>
+<li>Copy the built python extension to the app directory (<code>./dist</code>) under <code>backend</code></li>
+<li>Copy the <code>neutrapy.toml</code> to the app directory for the backend to use</li>
+</ul>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../app-to-extension/" class="md-footer__link md-footer__link--next" aria-label="Next: App-to-extension communication" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              App-to-extension communication
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>
