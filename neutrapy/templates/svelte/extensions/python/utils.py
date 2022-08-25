@@ -11,12 +11,12 @@ def runtime_info():
         return json.load(f)
 
 
-EXT_ID = "js.neutralino.example.python"
+EXT_ID = "js.neutralino.${slug_name}.python"
 RUNTIME_INFO = runtime_info()
 NEU_TOKEN = RUNTIME_INFO["accessToken"]
 NEU_URL = (
     f"ws://127.0.0.1:{RUNTIME_INFO['port']}"
-    "?extensionId=js.neutralino.example.python"
+    "?extensionId=js.neutralino.${slug_name}.python"
 )
 
 

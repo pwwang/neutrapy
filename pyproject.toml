@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.8"
 pyparam = "^0.5.3"
 rtoml = "^0.8.0"
+python-slugify = "^6.1.2"
 
 [tool.poetry.dev-dependencies]
 setuptools-rust = "^1.5.1"

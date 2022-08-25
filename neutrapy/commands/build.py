@@ -20,7 +20,11 @@ def run(args):
     neu_mtime = neufile.stat().st_mtime
     pyp_mtime = pypfile.stat().st_mtime
 
-    if (npy_mtime > neu_mtime or npy_mtime > pyp_mtime) and not args.force:
+    if (
+        npy_mtime > neu_mtime
+        or npy_mtime > pyp_mtime
+        or not Path("requirements.txt").is_file()
+    ) and not args.force:
         print(
             "neutrapy.toml is newer than downstream configuration files, \n"
             "please run `neutrapy sync` first or pass `--force`."

@@ -3,7 +3,7 @@
 // Feel free to use any frontend framework you like :)
 // See more details: https://neutralino.js.org/docs/how-to/use-a-frontend-library
 
-const extensionId = "js.neutralino.${name}.python";
+const extensionId = "js.neutralino.${slug_name}.python";
 
 async function evaluate_python_code() {
     this.disabled = true;

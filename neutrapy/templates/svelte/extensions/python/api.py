@@ -1,7 +1,7 @@
 import os
 import uuid
 import json
-from .utils import NEU_TOKEN, LOGGER
+from .utils import NEU_TOKEN, LOGGER, EXT_ID
 
 class API:
 
@@ -45,19 +45,13 @@ class API:
         self.ws.close()
         os._exit(0)
 
-    def on_fromapptoextension(self, data):
-        LOGGER.info("[on_fromapptoextension] %s", data)
-        import ast
-        code = ast.parse(data, mode="exec")
-        last = ast.Expression(code.body.pop().value)
-        _globals, _locals = {}, {}
-        try:
-            exec(compile(code, "<string>", "exec"), _globals, _locals)
-            out = eval(compile(last, "<string>", "eval"), _globals, _locals)
-        except Exception as e:
-            out = f"{type(e).__name__}: {e}"
+    def on_startgen(self, data):
+        LOGGER.info("[on_startgen] %s", data)
+        from random import randint
 
-        self.send("fromExtensionToApp", str(out))
+        num = randint(0, 100)
+
+        self.send("generated", str(num))
 
     def on_message(self, message):
         # the typical message sent from the neu application is a string

@@ -1,0 +1,8 @@
+excludes = [
+    "resources/",
+    "node_modules/",
+    "dist/",
+    ".vscode/",
+    "package-lock.json",
+]
+neujs_copy_to = "public/"
